@@ -4,7 +4,7 @@
 //initialize: Creates a stack with the top set to -1 for an empty stack
 void initialize(struct memStack *s) 
 {
-    s->top = -1;
+    s->top = -1; // sets the value of variable 'top' from the pointer 's' to -1
 }
 
 //isEmpty: checks if the top of the stack is still equivalent to -1
@@ -54,11 +54,12 @@ struct pos peek(struct memStack *s)
     return s->items[s->top];
 }
 
-//markPos: sets the value of the marked position to true
+/*markPos: sets the value of the marked position to true
 void markPos(struct pos *pos) 
 {
     pos->pheremone = true;
 }
+*/
 
 //clear sets the top to -1, which will represent a cleared stack, after popping all values
 void clear(struct memStack *s) 
