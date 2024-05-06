@@ -6,7 +6,7 @@
 #define MAX_SIZE 100
 
 //Position of each value in the 2D ARRAY
-typedef struct pos 
+struct pos 
 {
     int x;
     int y;
@@ -14,7 +14,7 @@ typedef struct pos
 };
 
 //Stack structure for Michael
-typedef struct memStack 
+struct memStack 
 {
     struct pos items[MAX_SIZE];
     int top;
