@@ -17,6 +17,7 @@ void MOVE_F(struct pos *antPOS, int **maze)
     while (count>0)
     {
         antPOS->x+=1;
+        antPOS->pheremone = true;
         count--;
     }
 }
@@ -40,4 +41,20 @@ int CWF(struct pos *antPOS, int **maze)
 
 void move_B(struct pos *pos) {
 
+}
+
+int CWB(struct pos *antPOS, int **maze)
+{
+    int count = 0;
+    int x = antPOS->x;
+    int y = antPOS->y;
+
+    // Iterate through the row until a non-wall element is encountered
+    while (maze[x][y] != 1 || y == -1)
+    {
+        count++;
+        y -= 1; //Move to the left by going through column values
+    }
+
+    return count;
 }
