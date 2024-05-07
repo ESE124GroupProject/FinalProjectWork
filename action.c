@@ -20,16 +20,19 @@ void MOVE_F(struct pos *antPOS)
 int CWF(struct pos *antPOS, int **maze)
 {
     int count = 0;
-    int *currentPos = &maze[antPOS->x][antPOS->y]; // Pointer to the current position
+    int x = antPOS->x;
+    int y = antPOS->y;
 
-    while (*currentPos == 1)
+    // Iterate through the row until a non-wall element is encountered
+    while (maze[x][y] != 1)
     {
         count++;
-        currentPos++; // Move the pointer to the right
+        y += 1; //Move to the right by going through column values
     }
-    
+
     return count;
 }
+
 
 void move_B(struct pos *pos) {
 
