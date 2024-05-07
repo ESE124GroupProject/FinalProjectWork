@@ -11,10 +11,14 @@ void move_F(struct pos *pos) {
     pos->x += 1;
 }
 
-void MOVE_F(struct pos *antPOS)
+void MOVE_F(struct pos *antPOS, int **maze)
 {
-    while (CWF>0)
+    int count = CWF(antPOS, maze);
+    while (count>0)
+    {
         antPOS->x+=1;
+        count--;
+    }
 }
 
 int CWF(struct pos *antPOS, int **maze)
