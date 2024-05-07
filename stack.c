@@ -70,3 +70,23 @@ void clear(struct memStack *s)
     }
     s->top = -1; //Set the top of the stack to -1 to represent empty stack
 }
+
+void MOVE_F(struct pos *antPOS)
+{
+    while (CWF>0)
+        antPOS->x+=1;
+}
+
+int CWF(struct pos *antPOS, int **maze)
+{
+    int count = 0;
+    int *currentPos = &maze[antPOS->x][antPOS->y]; // Pointer to the current position
+
+    while (*currentPos == 1)
+    {
+        count++;
+        currentPos++; // Move the pointer to the right
+    }
+    
+    return count;
+}

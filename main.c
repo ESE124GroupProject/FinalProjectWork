@@ -19,7 +19,7 @@ void readMaze(int maze[ROWS][COLS], const char *filename)
     {
         for (int j = 0; j < COLS; j++) 
         {
-            char c = '\0';
+            char c = ' ';
             fscanf(file, " %c", &c);
 
             maze[i][j] = (c == '*') ? 1 : (c == '_') ? 0 : (isdigit(c)) ? (c - '0') : -1;
