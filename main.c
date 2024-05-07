@@ -17,12 +17,12 @@ void readMaze(int maze[ROWS][COLS], const char *filename)
 
     for (int i = 0; i < ROWS; i++) 
     {
-        for (int j = 0; j < COLS; j++) 
+        for (int j = 0; j < COLS; j++) // goes through each element of the maze
         {
             char c = ' ';
             fscanf(file, " %c", &c);
 
-            maze[i][j] = (c == '*') ? 1 : (c == '_') ? 0 : (isdigit(c)) ? (c - '0') : -1;
+            maze[i][j] = (c == '*') ? 1 : (c == '_') ? 0 : (c == ' ') ? 0 : (isdigit(c)) ? (c - '0') : -1; // assigns values to elements based on what they are
 
         }
     }
