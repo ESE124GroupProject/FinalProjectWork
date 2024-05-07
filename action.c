@@ -8,7 +8,27 @@ void markPos(struct pos *pos)
 }
 
 void move_F(struct pos *pos) {
-    struct pos.x += 1;
+    pos->x += 1;
+}
+
+void MOVE_F(struct pos *antPOS)
+{
+    while (CWF>0)
+        antPOS->x+=1;
+}
+
+int CWF(struct pos *antPOS, int **maze)
+{
+    int count = 0;
+    int *currentPos = &maze[antPOS->x][antPOS->y]; // Pointer to the current position
+
+    while (*currentPos == 1)
+    {
+        count++;
+        currentPos++; // Move the pointer to the right
+    }
+    
+    return count;
 }
 
 void move_B(struct pos *pos) {
