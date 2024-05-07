@@ -11,6 +11,11 @@ void move_F(struct pos *pos) {
     pos->x += 1;
 }
 
+void move_B(struct pos *pos) {
+
+}
+
+//I did not add the whole itch thing yet, just a rough outline.
 void MOVE_F(struct pos *antPOS, int **maze)
 {
     int count = CWF(antPOS, maze);
@@ -22,7 +27,8 @@ void MOVE_F(struct pos *antPOS, int **maze)
     }
 }
 
-int CWF(struct pos *antPOS, int **maze)
+
+int CWR(struct pos *antPOS, int **maze)
 {
     int count = 0;
     int x = antPOS->x;
@@ -38,12 +44,7 @@ int CWF(struct pos *antPOS, int **maze)
     return count;
 }
 
-
-void move_B(struct pos *pos) {
-
-}
-
-int CWB(struct pos *antPOS, int **maze)
+int CWL(struct pos *antPOS, int **maze)
 {
     int count = 0;
     int x = antPOS->x;
@@ -54,6 +55,38 @@ int CWB(struct pos *antPOS, int **maze)
     {
         count++;
         y -= 1; //Move to the left by going through column values
+    }
+
+    return count;
+}
+
+int CWF(struct pos *antPOS, int **maze)
+{
+    int count = 0;
+    int x = antPOS->x;
+    int y = antPOS->y;
+
+    // Iterate through the row until a non-wall element is encountered
+    while (maze[x][y] != 1)
+    {
+        count++;
+        x += 1; //Move to the up by going through row values
+    }
+
+    return count;
+}
+
+int CWB(struct pos *antPOS, int **maze)
+{
+    int count = 0;
+    int x = antPOS->x;
+    int y = antPOS->y;
+
+    // Iterate through the row until a non-wall element is encountered
+    while (maze[x][y] != 1 || x == -1)
+    {
+        count++;
+        x -= 1; //Move to the left by going through column values
     }
 
     return count;
