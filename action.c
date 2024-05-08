@@ -12,7 +12,15 @@ void move_F(struct pos *pos) {
 }
 
 void move_B(struct pos *pos) {
+    pos->x -= 1;
+}
 
+void move_L(struct pos *pos) {
+    pos->y -= 1;
+}
+
+void move_R(struct pos *pos) {
+    pos->y += 1;
 }
 
 //I did not add the whole itch thing yet, just a rough outline.
