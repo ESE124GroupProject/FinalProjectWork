@@ -1,0 +1,4 @@
+MOVE_F
+MOVE_B
+MOVE_L
+MOVE_R

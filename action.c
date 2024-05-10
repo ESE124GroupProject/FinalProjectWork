@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "stack.h"
 
+//R, F, L, B
+int dx[4] = {0, 1, 0, -1};
+int dy[4] = {1, 0, -1, 0};
+
 void markPos(struct pos *pos) 
 {
     pos->pheremone = true;
