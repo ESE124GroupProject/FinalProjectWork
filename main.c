@@ -39,6 +39,23 @@ void printMazeBinary(const int maze[ROWS][COLS])
 
         printf("\n");
     }
+} 
+
+// Function to read commands from file and perform actions
+void readCommandsFromFile(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error opening file %s\n", filename);
+        return;
+    }
+
+    char commands[MAX_SIZE];
+
+    while (fscanf(file, "%s", commands) != EOF)
+        //Push Commands into intelligence stack
+    
+
+    fclose(file);
 }
 
 int main()
@@ -47,6 +64,6 @@ int main()
     readMaze(maze, "maze.txt");
     printMazeBinary(maze);
 
-    //struct memStack *s;
-    //initialize(s);
+    readCommandsFromFile("commands.txt");
+
 }
