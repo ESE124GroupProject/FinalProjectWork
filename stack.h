@@ -3,49 +3,32 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include "action.h"
 #define MAX_SIZE 100
 
 //Position of each value in the 2D ARRAY
-struct pos 
+typedef struct 
 {
     int x;
     int y;
     bool pheremone;
-};
+} pos;
 
 //Stack structure for Michael
-struct memStack 
+typedef struct 
 {
-    struct pos items[MAX_SIZE];
+    pos items[MAX_SIZE];
     int top;
-};
-
-typedef struct
-{
-    char commands[MAX_SIZE];
-    int actTop;
-
-} intStack;
+} memStack;
 
 //All methods created for the stack and position structures
-void initialize(struct memStack *s);
-void initialInt(intStack *i);
-
-bool isEmpty(struct memStack *s);
-bool isEmptyInt(intStack *i);
-bool isFull(struct memStack *s);
-bool isFullInt(intStack *i);
-
-void push(struct memStack *s, struct pos pos);
-void pushInt(intStack *i, char *str);
-char* popInt(intStack *i);
-char* peekInt(intStack *i);
-struct pos pop(struct memStack *s);
-struct pos peek(struct memStack *s);
-
-void markedPos(struct pos pos);
-
-void clear(struct memStack *s);
-void clearInt(intStack *i);
+void initialize(memStack *s);
+bool isEmpty(memStack *s);
+bool isFull(memStack *s);
+void push(memStack *s,pos pos);
+pos pop(memStack *s);
+pos peek(memStack *s);
+void markedPos(pos pos);
+void clear(memStack *s);
 
 #endif

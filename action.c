@@ -2,104 +2,110 @@
 #include <stdlib.h>
 #include "stack.h"
 
-//R, F, L, B
+#define ROWS 24
+#define COLS 10
+
+// R, F, L, B
 int dx[4] = {0, 1, 0, -1};
 int dy[4] = {1, 0, -1, 0};
 
-void markPos(struct pos *pos) 
+void markPos(pos *pos) 
 {
     pos->pheremone = true;
 }
 
-void move_F(struct pos *pos) {
-    pos->x += 1;
-}
-
-void move_B(struct pos *pos) {
-    pos->x -= 1;
-}
-
-void move_L(struct pos *pos) {
-    pos->y -= 1;
-}
-
-void move_R(struct pos *pos) {
-    pos->y += 1;
-}
-
-//I did not add the whole itch thing yet, just a rough outline.
-void MOVE_F(struct pos *antPOS, int **maze)
+pos move(pos position, int direction)
 {
-    int count = CWF(antPOS, maze);
-    while (count>0)
-    {
-        antPOS->x+=1;
-        antPOS->pheremone = true;
-        count--;
-    }
+    pos new_pos;
+
+    new_pos.x = position.x + dx[direction];
+    new_pos.y = position.y + dy[direction];
+
+    return new_pos;
 }
 
-
-int CWR(struct pos *antPOS, int **maze)
+// Use direction variable to control next position.
+int CW(pos *pos, int maze[ROWS][COLS], int pheromone[ROWS][COLS], int direction)
 {
-    int count = 0;
-    int x = antPOS->x;
-    int y = antPOS->y;
+    int len = 0;
+    int x = pos->x;
+    int y = pos->y;
 
-    // Iterate through the row until a non-wall element is encountered
     while (maze[x][y] != 1)
     {
-        count++;
-        y += 1; //Move to the right by going through column values
+        x += dx[direction];
+        y += dy[direction];
+
+        if (pheromone[x][y] == 1 || maze[x][y] == 1) {
+            return len;
+        }
+        len ++ ;
     }
 
-    return count;
+    return len;
 }
 
-int CWL(struct pos *antPOS, int **maze)
-{
-    int count = 0;
-    int x = antPOS->x;
-    int y = antPOS->y;
+pos BJPI(pos posi, int x, int direction) {
+   pos new_pos;
 
-    // Iterate through the row until a non-wall element is encountered
-    while (maze[x][y] != 1 || y == -1)
-    {
-        count++;
-        y -= 1; //Move to the left by going through column values
+   new_pos.x = posi.x + x * dx[direction];
+   new_pos.y = posi.y + x * dy[direction];
+
+   return new_pos;
+}
+
+pos CJPI(pos pos, int direction) {
+    return BJPI(pos, 1, direction);
+}
+
+pos backtrack(struct memStack *stack) {
+    pos last_pos = pop(stack);
+
+    return last_pos;
+}
+
+void record_action(const char action[]) {
+    const char filename[] = "output.txt"; // Removed hardcoded path
+
+    FILE* fp = fopen(filename, "a");
+    if (fp == NULL) {
+        printf("Error opening file for appending\n");
+        return;
     }
 
-    return count;
+    fprintf(fp, "%s\n", action);
+    printf("Record the action %s to the output file.\n", action);
+
+    fclose(fp); // Close file after writing
 }
 
-int CWF(struct pos *antPOS, int **maze)
-{
-    int count = 0;
-    int x = antPOS->x;
-    int y = antPOS->y;
-
-    // Iterate through the row until a non-wall element is encountered
-    while (maze[x][y] != 1)
-    {
-        count++;
-        x += 1; //Move to the up by going through row values
+void clear_action_file() {
+    const char filename[] = "output.txt"; // Removed hardcoded path
+    FILE* fp = fopen(filename, "w");
+    if (fp == NULL) {
+        printf("Error opening file for clearing\n");
+        return;
     }
 
-    return count;
+    fprintf(fp, "%s", "");
+    printf("Cleared all previous commands!\n");
+
+    fclose(fp); // Close file after writing
 }
 
-int CWB(struct pos *antPOS, int **maze)
-{
-    int count = 0;
-    int x = antPOS->x;
-    int y = antPOS->y;
-
-    // Iterate through the row until a non-wall element is encountered
-    while (maze[x][y] != 1 || x == -1)
-    {
-        count++;
-        x -= 1; //Move to the left by going through column values
+int comming_direction(pos lastPos, pos curPos) {
+    if (lastPos.x - curPos.x < 0) {
+        return 2;
+    } else if (lastPos.x - curPos.x > 0) {
+        return 0;
+    } else if (lastPos.y - curPos.y > 0) {
+        return 3;
+    } else if (lastPos.y - curPos.y < 0) {
+        return 1;
     }
 
-    return count;
+    return -1;
 }
+
+
+//Stack storage for intelligence

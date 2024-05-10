@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 #include "stack.h"
 
 #define ROWS 24
 #define COLS 10
+
 
 void readMaze(int maze[ROWS][COLS], const char *filename) 
 {
@@ -39,23 +41,44 @@ void printMazeBinary(const int maze[ROWS][COLS])
 
         printf("\n");
     }
-} 
+}
 
-// Function to read commands from file and perform actions
-void readCommandsFromFile(const char *filename) {
+void readIntel(const char *filename)
+{
     FILE *file = fopen(filename, "r");
-    if (file == NULL) {
-        printf("Error opening file %s\n", filename);
+    if (file == NULL) 
+    {
+        printf("ERROR: OPENING FILE ~ %s ~\n", filename);
         return;
     }
 
-    char commands[MAX_SIZE];
+    char line[100]; // Assuming max line length is 100 characters
+    char lines[100][100]; // Array to store lines, assuming max 100 lines each with 100 characters
 
-    while (fscanf(file, "%s", commands) != EOF)
-        //Push Commands into intelligence stack
-    
+    int count = 0; // Counter for the number of lines read
 
-    fclose(file);
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        // Copy the line to the array of strings
+        strcpy(lines[count], line);
+      
+        count++;
+        
+        // Check if the array is full (max 100 lines)
+        if (count >= 100)
+        {
+            printf("WARNING: MAXIMUM NUMBER OF LINES REACHED\n");
+            break;
+        }
+    }
+
+    // Test print lines to see if the code is reading the lines
+    // for (int i = 0; i < count; i++)
+    // {
+    //     printf("Line %d: %s", i+1, lines[i]);
+    // }
+
+    fclose(file); // Close the file after reading
 }
 
 int main()
@@ -64,6 +87,6 @@ int main()
     readMaze(maze, "maze.txt");
     printMazeBinary(maze);
 
-    readCommandsFromFile("commands.txt");
-
+    readIntel("intelligence.txt");
+    
 }
